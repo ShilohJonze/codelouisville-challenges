@@ -7,17 +7,18 @@ namespace PokerDealer
     {
         private readonly List<Card> _cards = new List<Card>();
 
-        public Deck()
+        public Deck(int numDecks)
         {
-            foreach (var suit in Suits.GetAll())
+            for (var i = 0; i < numDecks; i++)
             {
-                foreach (var cardType in CardTypes.GetAll())
+                foreach (var suit in Suits.GetAll())
                 {
-                    _cards.Add(new Card(suit, cardType));
+                    foreach (var cardType in CardTypes.GetAll())
+                    {
+                        _cards.Add(new Card(suit, cardType));
+                    }
                 }
             }
-
-            // TODO: Bonus: Support multiple combined decks.  Maybe add an argument to pass this in?
         }
 
         public Card DrawCard()

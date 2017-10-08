@@ -8,12 +8,14 @@ namespace PokerDealer
     {
         static void Main(string[] args)
         {
+            const int numDecks = 5;
+
             Console.OutputEncoding = Encoding.UTF8;
             Console.BackgroundColor = ConsoleColor.White;
             Console.ForegroundColor = ConsoleColor.Blue;
             Console.Clear();
 
-            var deck = new Deck();
+            var deck = new Deck(numDecks);
             Console.WriteLine("Before shuffling:");
             deck.Display();
             Console.WriteLine();
@@ -64,7 +66,10 @@ namespace PokerDealer
                 card.Display();
             }
 
-            // TODO: Bonus: Identify the hand (e.g., two pair, straight flush).
+            var handClassifier = new HandClassifier(hand);
+            var classification = handClassifier.GetClassification();
+            if (classification != null)
+                Console.Write(" {0}", classification);
 
             Console.WriteLine();
         }
