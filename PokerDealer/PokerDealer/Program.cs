@@ -45,9 +45,16 @@ namespace PokerDealer
             var hand = new List<Card>();
             for (var i = 0; i < handSize; i++)
             {
-                // TODO: What happens when the deck runs out?
                 var card = deck.DrawCard();
+                if (card == null)
+                    break;
                 hand.Add(card);
+            }
+
+            if (hand.Count < handSize)
+            {
+                Console.WriteLine("Not enough cards for {0}'s hand.", name);
+                return;
             }
 
             Console.Write("{0,10}:", name);

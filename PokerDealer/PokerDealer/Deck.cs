@@ -9,15 +9,25 @@ namespace PokerDealer
 
         public Deck()
         {
-            // TODO: Populate _cards with one of each card.
+            foreach (var suit in Suits.GetAll())
+            {
+                foreach (var cardType in CardTypes.GetAll())
+                {
+                    _cards.Add(new Card(suit, cardType));
+                }
+            }
 
             // TODO: Bonus: Support multiple combined decks.  Maybe add an argument to pass this in?
         }
 
         public Card DrawCard()
         {
-            // TODO: Remove a card from _cards and return it.  What if there aren't any cards left?
-            throw new NotImplementedException("This is part of the challenge!");
+            if (_cards.Count == 0)
+                return null;
+
+            var drawn = _cards[0];
+            _cards.RemoveAt(0);
+            return drawn;
         }
 
         public void Display()
