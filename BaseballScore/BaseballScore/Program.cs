@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace BaseballScore
 {
@@ -24,9 +25,31 @@ namespace BaseballScore
             Console.WriteLine();
             Console.WriteLine("Team                  1  2  3  4  5  6  7  8  9  Final");
             Console.WriteLine("------------------------------------------------------");
-            // TODO: Bonus: For each team display the runs per inning and final score.
+            DisplayTeamScore("Columbus Greens");
+            DisplayTeamScore("Saint Paul Triplets");
 
             Console.ReadLine();
+        }
+
+        private static void DisplayTeamScore(string teamName)
+        {
+            const int numInnings = 9;
+
+            var runCounts = Enumerable.Repeat(0, numInnings).ToList();
+
+            Console.Write("{0,-20}", teamName);
+            foreach (var playerStats in GameStats.GetAll())
+            {
+                if (playerStats.TeamName != teamName)
+                    continue;
+
+                for (var inning = 0; inning < numInnings; inning++)
+                    runCounts[inning] += playerStats.InningRecords[inning].NumRuns;
+            }
+
+            foreach (var runCount in runCounts)
+                Console.Write("{0,3}", runCount);
+            Console.WriteLine("{0,7}", runCounts.Sum());
         }
     }
 }
