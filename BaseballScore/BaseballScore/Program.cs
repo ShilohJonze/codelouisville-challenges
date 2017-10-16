@@ -8,7 +8,18 @@ namespace BaseballScore
         {
             Console.WriteLine("Batting Averages");
             Console.WriteLine("--------------------");
-            // TODO: Display the per-player batting averages to three decimal places.
+            foreach (var playerStats in GameStats.GetAll())
+            {
+                var totalAtBats = 0;
+                var totalHits = 0;
+                foreach (var inningRecord in playerStats.InningRecords)
+                {
+                    totalAtBats += inningRecord.TimesAtBat;
+                    totalHits += inningRecord.NumHits;
+                }
+
+                Console.WriteLine("{0,13}: {1:0.000}", playerStats.PlayerName, (float)totalHits / totalAtBats);
+            }
 
             Console.WriteLine();
             Console.WriteLine("Team                  1  2  3  4  5  6  7  8  9  Final");
