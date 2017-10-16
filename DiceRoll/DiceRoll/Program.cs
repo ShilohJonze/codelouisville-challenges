@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Media;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DiceRoll
 {
@@ -24,7 +17,7 @@ namespace DiceRoll
                 Console.WriteLine("Dice 2 is rolled: {0}", RollDie());
                 Console.WriteLine("\nPress enter to roll again or type q for quit");
 
-            } while (Console.ReadLine() == "q");
+            } while (Console.ReadLine() != "q");
         }
 
         private static int RollDie()
@@ -32,11 +25,14 @@ namespace DiceRoll
             //set up a return value
             int returnValue = 0;
 
+            //seed the random function to ensure randomness
+            Random rnd = new Random(Guid.NewGuid().GetHashCode());
 
+            //populate the returnvalue
+            returnValue = rnd.Next(1, 7);
 
             //return the new random integer value
             return returnValue;
         }
-
     }
 }
